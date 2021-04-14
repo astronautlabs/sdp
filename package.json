@@ -19,6 +19,7 @@
     "rtp",
     "sdp",
     "webrtc",
+    "st2110",
     "broadcast"
   ],
   "author": "Astronaut Labs, LLC",
