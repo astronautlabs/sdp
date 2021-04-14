@@ -3,9 +3,13 @@
   "version": "0.0.1",
   "description": "Session Description Protocol (RFC 4566)",
   "main": "dist/index.js",
+  "publishConfig": {
+    "access": "public"
+  },
   "scripts": {
     "build": "tsc -b",
-    "test": "npm run build && node dist/test"
+    "test": "npm run build && node dist/test",
+    "prepublishOnly": "npm test"
   },
   "repository": {
     "type": "git",
