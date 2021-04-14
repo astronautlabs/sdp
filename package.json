@@ -1,6 +1,6 @@
 {
   "name": "@astronautlabs/sdp",
-  "version": "0.0.1",
+  "version": "0.0.2",
   "description": "Session Description Protocol (RFC 4566)",
   "main": "dist/index.js",
   "publishConfig": {
