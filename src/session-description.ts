@@ -42,18 +42,18 @@ export interface SessionDescription {
     sessionName : string;
     information? : string;
     uri? : string;
-    emails : Contact[]
-    phoneNumbers : Contact[];
+    emails? : Contact[]
+    phoneNumbers? : Contact[];
     connection? : ConnectionDescription;
-    bandwidth : BandwidthDescription[]; // b=
-    times : Time[];
-    timeZoneAdjustments : TimeZoneAdjustment[]; // z=
+    bandwidth? : BandwidthDescription[]; // b=
+    times? : Time[];
+    timeZoneAdjustments? : TimeZoneAdjustment[]; // z=
     
     /**
      * @deprecated in RFC 4566
      */
-    encryptionKey : EncryptionKey;
-    attributes : Attribute[];
+    encryptionKey? : EncryptionKey;
+    attributes? : Attribute[];
     media : MediaDescription[];
 }
 
@@ -87,15 +87,15 @@ export interface Origin {
 export interface MediaDescription {
     type : 'audio' | 'video' | 'application' | 'data' | 'control' | string; // m=
     port : number;
-    numberOfPorts : number;
+    numberOfPorts? : number;
     transport : string; // m=
     formats : string[];
     
-    title : string; // i=
-    connections : ConnectionDescription[]; // c=
-    bandwidth : BandwidthDescription[]; // b=
+    title? : string; // i=
+    connections? : ConnectionDescription[]; // c=
+    bandwidth? : BandwidthDescription[]; // b=
     encryptionKey? : EncryptionKey; // k=
-    attributes : Attribute[]; // a=
+    attributes? : Attribute[]; // a=
 }
 
 export class SDP {
@@ -388,11 +388,13 @@ export class SDP {
                 lines.push(`k=${sdp.encryptionKey.method}`);
         }
 
-        for (let attr of sdp.attributes) {
-            if (attr.value === void 0)
-                lines.push(`a=${attr.name}`);
-            else
-                lines.push(`a=${attr.name}:${attr.value}`);
+        if (sdp.attributes) {
+            for (let attr of sdp.attributes) {
+                if (attr.value === void 0)
+                    lines.push(`a=${attr.name}`);
+                else
+                    lines.push(`a=${attr.name}:${attr.value}`);
+            }
         }
 
         for (let media of sdp.media) {
@@ -427,11 +429,13 @@ export class SDP {
                     lines.push(`k=${media.encryptionKey.method}`);
             }
 
-            for (let attr of media.attributes) {
-                if (attr.value === void 0)
-                    lines.push(`a=${attr.name}`);
-                else
-                    lines.push(`a=${attr.name}:${attr.value}`);
+            if (media.attributes) {
+                for (let attr of media.attributes) {
+                    if (attr.value === void 0)
+                        lines.push(`a=${attr.name}`);
+                    else
+                        lines.push(`a=${attr.name}:${attr.value}`);
+                }
             }
         }
 
